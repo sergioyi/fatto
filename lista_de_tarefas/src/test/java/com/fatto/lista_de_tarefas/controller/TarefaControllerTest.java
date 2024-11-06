@@ -39,7 +39,7 @@ public class TarefaControllerTest {
     @Test
     @DisplayName("incluido com sucesso")
     void testIncluir() {
-        ResponseEntity<String> incluir = this.service.Incluir(new TarefaDTO("fazer o teste da fatto", 100f, LocalDate.of(2024, 11, 3), 1));
+        ResponseEntity<String> incluir = this.service.Incluir(new TarefaDTO("fazer o teste da fatto", 100f, LocalDate.of(2024, 11, 3), 1l));
         assertEquals(incluir.getStatusCode(), HttpStatus.OK);
     }
 
@@ -55,8 +55,8 @@ public class TarefaControllerTest {
     @DisplayName("editar com sucesso") 
     public void testEditarComSucesso() { 
         Long id = 1L; 
-        TarefaDTO tarefaDTO = new TarefaDTO("nova tarefa", 200f, LocalDate.of(2025, 12, 15), 1); 
-        TarefaDTO tarefaantiga = new TarefaDTO("tarefa antiga", 100f, LocalDate.of(2024, 11, 3), 1);
+        TarefaDTO tarefaDTO = new TarefaDTO("nova tarefa", 200f, LocalDate.of(2025, 12, 15), 1l); 
+        TarefaDTO tarefaantiga = new TarefaDTO("tarefa antiga", 100f, LocalDate.of(2024, 11, 3), 1l);
         Tarefa tarefaExistente = new Tarefa(id, tarefaantiga);
         
          // Configura o mock para simular o comportamento do repositório 
@@ -66,5 +66,6 @@ public class TarefaControllerTest {
          assertEquals("editado com sucesso", response.getBody()); // Verifica se o repositório foi chamado para salvar a nova tarefa 
          verify(repository).save(any(Tarefa.class));
         }
-    
+    //editar pelo mesmo nome
+    //editar por outro que já existe
 }

@@ -21,7 +21,7 @@ public class Tarefa {
     private float custo;
     private LocalDate datalimite;
     @Column(unique = true)
-    private Integer ordem;
+    private Long ordem;
     public Tarefa() { }
     public Tarefa(TarefaDTO tarefa){
         this.nometarefa = tarefa.nometarefa();
@@ -36,4 +36,12 @@ public class Tarefa {
         this.datalimite = tarefa.datalimite();
         this.ordem = tarefa.ordem();
     }
+    public Tarefa(Long id, String nometarefa, float custo, LocalDate datalimite, Long ordem) {
+        this.id = id;
+        this.nometarefa = nometarefa;
+        this.custo = custo;
+        this.datalimite = datalimite;
+        this.ordem = ordem;
+    }
+
 }
