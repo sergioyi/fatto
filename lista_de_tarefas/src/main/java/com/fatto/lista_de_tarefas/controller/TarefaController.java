@@ -41,10 +41,6 @@ public class TarefaController {
     public Iterable<Tarefa> ListaTarefas(){
         return this.service.ListaTarefas();
     }
-    @GetMapping("/numero/")
-    public Integer NumeroItems(){
-        return this.service.NumeroItems();
-    }
     @PutMapping("/ordena/{ordem}/{toup}") 
     public void Ordena(@PathVariable("ordem") Long ordem, @PathVariable("toup") boolean toup){ 
         this.service.Ordena(ordem, toup); 

@@ -8,11 +8,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "tarefas")
-@Data
+@Getter
+@Setter
 public class Tarefa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +29,12 @@ public class Tarefa {
         this.nometarefa = tarefa.nometarefa();
         this.custo = tarefa.custo();
         this.datalimite = tarefa.datalimite();
-        this.ordem = tarefa.ordem();
     }
     public Tarefa(Long id, TarefaDTO tarefa){
         this.id = id;
         this.nometarefa = tarefa.nometarefa();
         this.custo = tarefa.custo();
         this.datalimite = tarefa.datalimite();
-        this.ordem = tarefa.ordem();
     }
     public Tarefa(Long id, String nometarefa, float custo, LocalDate datalimite, Long ordem) {
         this.id = id;

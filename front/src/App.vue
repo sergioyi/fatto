@@ -21,7 +21,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="p in lista" v-bind:key="p.id">
+
+              <tr v-for="p in lista" v-bind:key="p.id" :class="{'high-cost': p.custo >= 1000}">
                 <td>
                   <button class="btnicons" @click="ordemUp(p.ordem)"><img class="icone"
                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA/CAYAAABXXxDfAAAAAXNSR0IArs4c6QAAAaRJREFUaEPtmFuOwjAMRc3OYGUDK5tZGnikIIiaxo/EVpQbqV/UNOfcvNoLbdwuG7MT4HdNH8kj+Q0NYNhvGPo/MpJH8hsayB7295dzvlJaJvwvEV1f1x8R3TLos+ALeGFOEZABX4OnCYiGb4GnCIiE74GHC4iCl4KHCoiA14KHCZgNbwUPETAT3gs+XcAs+DNw3tP5cFO3BxH9NA47U84BM+DPwBmQQfieunFf+KgbJmA0fA+c4Tj1FjwLCRMwEl4CznA9+DABo+Cl4FL4EAEj4DXgGvjpArzwWnAt/FQBHngLuAV+mgAPfGvh4u3s7OuMZME72u5buwB/COHtU9088Ecp9sCtyRewWoAZnP/QC/8JIwH3wn9OARf4KPgCJB161mGvHta9ghHJ955R/w74A2PhQYQ/UHi81Y4m0/2AN2mzF2HOY85/GwifguEPxIJ3/iXHvpooK5G8Upj3dqz2WO03XO3LW2AdvvSt0Dvt3vUZC96wznv/CPBeg6vWI/lVk/P2G8l7Da5aj+RXTc7bbyTvNbhqPZJfNTlvv5G81+Cq9U9x51lAE774fgAAAABJRU5ErkJggg==" /></button>
@@ -38,6 +39,10 @@
                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA/CAYAAABXXxDfAAAAAXNSR0IArs4c6QAAAa1JREFUaEPt2ltygzAMBVBnZ+3K2q4szc5SdcIMH0AkWY8rEN8GfK6wDR5u48LH7cL20firVr8rX6DyH68+/lr2tULlCX5/oT/HGGYBoOPX8KXoZgEg47fgpgGg4o/gZgEg4jlwkwAQ8TS5LbM7Z3JXzwGIeAKHBICKlwbw83fCN+cxWbdBxnMDUMHp4tl4GttfYwwat3vH0RBQw7Px61md3tqkAUzBM/Fby5kkgGl4Fv5oHecE8NBMbltjKnrMc15g3gUgndR320fiOfCloyEBROEl8LAAIvAaeEgA3vgZOAVgMqvvDXpPPDTcc6mDh3vhS8A98GXg1vhScEt8ObgVviTcAl8WPosvDZ/Bl4dr8aeAa/CngUvxp4JL8bQvTjutmsP160zToSg8JDwCDwv3xkPDPfHwcC98CbgHvgxciqd1/uinAdprN/tTSrt8Sc7z3MCU9COlbeNTYge4aVceoAgpXejKp8QOcFNJ5d+t8wCc/y6w3zck+Jnv+chg2G+ZjWeWpSvPDCqzmctjv/wtmQnj3Jv9q5pkzHNuXKpN40uVy7CzXXnDMEtd6gmf1GJA64Zb/gAAAABJRU5ErkJggg==" /></button>
                 </td>
               </tr>
+
+
+
+              
             </tbody>
           </table>
         </div>
@@ -101,37 +106,41 @@ export default {
 
   methods: {
     //  ordem
-    /*async numerodeitens(){
-      fetch('http://localhost:8080/tarefa/numero/',{
-        method: "GET"
-      })
-      .then((res) => res.json())
-        .then((resposta) => {
-          this.ordem = resposta+1
-        })
-    },*/
+
     async ordemUp(e){
-      console.log(e)
+
+      await fetch(`http://localhost:8080/tarefa/ordena/${e}/${true}`, {
+        method: 'PUT',
+        //body: JSON.stringify(tarefa),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      .then(()=>{
+        this.buscar()
+      })
     },
     async ordemDown(e){
       console.log(e)
+      await fetch(`http://localhost:8080/tarefa/ordena/${e}/${false}`, {
+        method: 'PUT',
+        //body: JSON.stringify(tarefa),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      .then(()=>{
+        this.buscar()
+      })
     },
 
     async cadastra() {
-      await fetch('http://localhost:8080/tarefa/numero/',{
-        method: "GET"
-      })
-      .then((res) => res.json())
-        .then((resposta) => {
-          this.ordem = resposta+1
-        })
 
       //  objeto
       const tarefa = {
         nometarefa: this.nometarefa,
         custo: this.custo,
-        datalimite: this.datalimite,
-        ordem: this.ordem
+        datalimite: this.datalimite
       }
 
       await fetch(`http://localhost:8080/tarefa/`, {
@@ -250,12 +259,17 @@ export default {
         });
     },
 
+    //  mudar a cor
+    cor(){
+      if(this.custo >= 1000.00 ){
+        document.getElementById('meuElemento').style.backgroundColor = 'red';
+      }
+    }
 
 
   },
   mounted() {
     this.buscar()
-    //this.numerodeitens()
   }
 }
 </script>
@@ -367,4 +381,8 @@ td{
   border-radius: 8px;
   padding: 8px;
 }
+
+
+/*cor cara*/
+.high-cost { color: red; }
 </style>

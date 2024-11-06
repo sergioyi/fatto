@@ -39,7 +39,7 @@ public class TarefaControllerTest {
     @Test
     @DisplayName("incluido com sucesso")
     void testIncluir() {
-        ResponseEntity<String> incluir = this.service.Incluir(new TarefaDTO("fazer o teste da fatto", 100f, LocalDate.of(2024, 11, 3), 1l));
+        ResponseEntity<String> incluir = this.service.Incluir(new TarefaDTO("fazer o teste da fatto", 100f, LocalDate.of(2024, 11, 3)));
         assertEquals(incluir.getStatusCode(), HttpStatus.OK);
     }
 
@@ -55,8 +55,8 @@ public class TarefaControllerTest {
     @DisplayName("editar com sucesso") 
     public void testEditarComSucesso() { 
         Long id = 1L; 
-        TarefaDTO tarefaDTO = new TarefaDTO("nova tarefa", 200f, LocalDate.of(2025, 12, 15), 1l); 
-        TarefaDTO tarefaantiga = new TarefaDTO("tarefa antiga", 100f, LocalDate.of(2024, 11, 3), 1l);
+        TarefaDTO tarefaDTO = new TarefaDTO("nova tarefa", 200f, LocalDate.of(2025, 12, 15)); 
+        TarefaDTO tarefaantiga = new TarefaDTO("tarefa antiga", 100f, LocalDate.of(2024, 11, 3));
         Tarefa tarefaExistente = new Tarefa(id, tarefaantiga);
         
          // Configura o mock para simular o comportamento do repositório 
