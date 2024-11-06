@@ -1,16 +1,12 @@
-FROM ubuntu:latest AS build
-
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
-COPY . .
-
-RUN apt-get install maven -y
+FROM maven:3.8.6-eclipse-temurin-17 AS build 
+WORKDIR /app COPY pom.xml . 
+COPY src ./src 
 RUN mvn clean install -DskipTests
 
 FROM openjdk:17-jdk-slim
 
+ARG JAR_FILE=target/*.jar
+COPY --from=build ${JAR_FILE} app.jar
 EXPOSE 8080
-
-COPY --from=build /target/deploy_render-1.0.0.jar app.jar
 
 ENTRYPOINT [ "java", "-jar", "app.jar" ]
