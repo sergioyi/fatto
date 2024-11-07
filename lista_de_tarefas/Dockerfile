@@ -8,7 +8,6 @@ FROM openjdk:17-jdk-slim
 
 ARG JAR_FILE=target/*.jar
 # Verifica se o JAR foi gerado corretamente no diretório 'target'
-RUN ls -l target
 COPY --from=build ${JAR_FILE} app.jar
 EXPOSE 8080
 
