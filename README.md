@@ -12,6 +12,8 @@ E construa coloque em execução o banco de dados postgreSQL e um container da i
 docker-compose up
 ```
 
+E com os containers em execução, execute o [comando sql](query.sql) para criar a tabela; com isso já poderá acessar o projeto [aqui](http://localhost:8080/)
+
 # Sistema Lista de Tarefas
 ## Desenvolva um sistema web para cadastro de Tarefas e publique a aplicação disponibilizando o link para acesso. Os dados (tarefas) devem ser mantidos em um banco de dados.
 
