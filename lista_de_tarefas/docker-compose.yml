@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  postgresql:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: senha
+      POSTGRES_USER: usuarios
+      POSTGRES_DB: fatto
+    volumes:
+      - /path/to/postgresql-persistence:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    image: fatto_image
+    depends_on:
+      - postgresql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/fatto
+      SPRING_DATASOURCE_USERNAME: usuarios
+      SPRING_DATASOURCE_PASSWORD: senha
+    ports:
+      - "8080:8080"

@@ -1,3 +1,17 @@
+# Como usar
+Também pode Acessar o projeto funcionando [aqui](https://fatto-988d.onrender.com)
+
+Acesse dentro do diretório [lista_de_tarefas](./lista_de_tarefas) por meio de terminal, e dê o comando para construção da imagem:
+
+```shell
+docker build -t "fatto_image" .
+```
+
+E construa coloque em execução o banco de dados postgreSQL e um container da imagem fatto_image com o comando:
+```shell
+docker-compose up
+```
+
 # Sistema Lista de Tarefas
 ## Desenvolva um sistema web para cadastro de Tarefas e publique a aplicação disponibilizando o link para acesso. Os dados (tarefas) devem ser mantidos em um banco de dados.
 
@@ -47,7 +61,7 @@ O registro recém-criado será o último na ordem de apresentação.
 Não pode haver duas tarefas com o mesmo nome.
 
 
-### ❌ Reordenação das tarefas
+### ✅ Reordenação das tarefas
 A função deve permitir que o usuário possa alterar a ordem de apresentação de uma tarefa.
 A implementação pode ser feita de uma das duas formas abaixo (escolha uma, se possível, as
 duas):
