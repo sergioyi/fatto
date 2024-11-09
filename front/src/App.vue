@@ -109,7 +109,7 @@ export default {
 
     async ordemUp(e){
 
-      await fetch(`http://localhost:8080/tarefa/ordena/${e}/${true}`, {
+      await fetch(`https://fatto-988d.onrender.com/tarefa/ordena/${e}/${true}`, {
         method: 'PUT',
         //body: JSON.stringify(tarefa),
         headers: {
@@ -122,7 +122,7 @@ export default {
     },
     async ordemDown(e){
       console.log(e)
-      await fetch(`http://localhost:8080/tarefa/ordena/${e}/${false}`, {
+      await fetch(`https://fatto-988d.onrender.com/tarefa/ordena/${e}/${false}`, {
         method: 'PUT',
         //body: JSON.stringify(tarefa),
         headers: {
@@ -143,7 +143,7 @@ export default {
         datalimite: this.datalimite
       }
 
-      await fetch(`http://localhost:8080/tarefa/`, {
+      await fetch(`https://fatto-988d.onrender.com/tarefa/`, {
         method: 'POST',
         body: JSON.stringify(tarefa),
         headers: {
@@ -172,7 +172,7 @@ export default {
         })
     },
     async buscar() {
-      await fetch('http://localhost:8080/tarefa/', {
+      await fetch('https://fatto-988d.onrender.com/tarefa/', {
         method: "GET"
       })
         .then((res) => res.json())
@@ -188,7 +188,7 @@ export default {
       let text = "Deseja excluir essa tarefa ?";
       if (confirm(text) == true) {
 
-      fetch(`http://localhost:8080/tarefa/` + e, {
+      fetch(`https://fatto-988d.onrender.com/tarefa/` + e, {
         method: 'delete'
       })
       .then(() => {
@@ -227,7 +227,7 @@ export default {
         ordem: this.ordem
       }
 
-      fetch('http://localhost:8080/tarefa/' + idtemporario, {
+      fetch('https://fatto-988d.onrender.com/tarefa/' + idtemporario, {
         method: 'put',
         body: JSON.stringify(dados),
         headers: {
