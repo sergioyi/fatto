@@ -14,6 +14,7 @@
               <tr>
                 <th>
                 </th>
+                <th class="th-table">Id</th>
                 <th class="th-table">Nome</th>
                 <th class="th-table">Custo R$</th>
                 <th class="th-table">Data Limite</th>
@@ -22,27 +23,29 @@
             </thead>
             <tbody>
 
-              <tr v-for="p in lista" v-bind:key="p.id" :class="{'high-cost': p.custo >= 1000}">
+              <tr v-for="p in lista" v-bind:key="p.id" :class="{ 'high-cost': p.custo >= 1000 }">
                 <td>
-                  <button class="btnicons" @click="ordemUp(p.ordem)"><img class="icone"
+                  <button class="btnicons" @click="ordemUp(p.ordem)" v-show="p.ordem !== 1"><img class="icone"
                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA/CAYAAABXXxDfAAAAAXNSR0IArs4c6QAAAaRJREFUaEPtmFuOwjAMRc3OYGUDK5tZGnikIIiaxo/EVpQbqV/UNOfcvNoLbdwuG7MT4HdNH8kj+Q0NYNhvGPo/MpJH8hsayB7295dzvlJaJvwvEV1f1x8R3TLos+ALeGFOEZABX4OnCYiGb4GnCIiE74GHC4iCl4KHCoiA14KHCZgNbwUPETAT3gs+XcAs+DNw3tP5cFO3BxH9NA47U84BM+DPwBmQQfieunFf+KgbJmA0fA+c4Tj1FjwLCRMwEl4CznA9+DABo+Cl4FL4EAEj4DXgGvjpArzwWnAt/FQBHngLuAV+mgAPfGvh4u3s7OuMZME72u5buwB/COHtU9088Ecp9sCtyRewWoAZnP/QC/8JIwH3wn9OARf4KPgCJB161mGvHta9ghHJ955R/w74A2PhQYQ/UHi81Y4m0/2AN2mzF2HOY85/GwifguEPxIJ3/iXHvpooK5G8Upj3dqz2WO03XO3LW2AdvvSt0Dvt3vUZC96wznv/CPBeg6vWI/lVk/P2G8l7Da5aj+RXTc7bbyTvNbhqPZJfNTlvv5G81+Cq9U9x51lAE774fgAAAABJRU5ErkJggg==" /></button>
-                  <button class="btnicons" @click="ordemDown(p.ordem)"><img class="icone"
+                  <button class="btnicons" @click="ordemDown(p.ordem)" v-show="p.ordem !== lista.length"><img class="icone"
                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA/CAYAAABXXxDfAAAAAXNSR0IArs4c6QAAAZlJREFUaEPtmVFuwyAQRMnN0pM1OVl7tGYrWUpaDLvAzkhh/BUploc3swsYX8rG12Vj9iL4XdNX8kp+QwdU9huG/ous5JX8hg6o7DcMXRMeq+yvlWr7RlcgA97Avyqg8LHABUspglfyrw7AqxAuqLLXhPev6+FVCBdU2avsVfbPDsBbEC6onn+znrf9uvetbMXePqJ3+rK4ouxvpZTPx2Ho/aFiv3vXLHxULw3+GMgh4DFgBn5ELwX+70C8BozCj+qlwNuBRO1ExsRaFTACfwZuWjbXfPR6rfb/bM+PGBCFTwFf9cUmakAEPg18Fbw9J2KAFz4VfCV8xAAPfDr4anivAT14CHgGvMcAm53Pjq5h4FnwPQMMvrZE2vJoO8XaNbyctZbA2aWu9ezWJBhZllPAM5M/4GYNSANHwPdaoFUBqeAo+BED0sGR8BEDIOBoeI8BMHAGfMsAKDgLvmYAHJwJ/2wABZwNb/q2nfWc+0U2Re57M3d47kGwbhQ8y3m2rpJnJ8DSV/Is59m6Sp6dAEtfybOcZ+tunfwPRuBaQIpdqiEAAAAASUVORK5CYII=" /></button>
                 </td>
+                <td>{{ p.id }}</td>
                 <td>{{ p.nometarefa }}</td>
                 <td>{{ p.custo }}</td>
                 <td>{{ p.datalimite }}</td>
                 <td>
                   <button class="btnicons" @click="deleta(p.id)"><img class="icone"
                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA/CAYAAABXXxDfAAAAAXNSR0IArs4c6QAAAadJREFUaEPtm21SAyEMhunJ1JOpJ1NPpn1rUYuwmDQgnX2Y6a+FLO8HSTrDHtKOx2HH2BPg96o+yg9Q/j6lpN9dQOy3c4yngFgXIUYor00+Rm80pfR8jBlKQDT4UcAzl6EERIKXzV8GKF6GfDgeqdeI90SCH616xnsz4KVQTlgesZQw5aifI8z6kcrL8tEbHRHzi0jAe/xYWTNCpRExUV4M/MX25TluGUWNTTlXCU8JyjuujblZEnvgZ9VuLzm9dZv4AL9BH8r3vLXwc2zfEqd35lvr3isPwnrujpNq/yGU1fV+0wC8ia7PyShfkIbtHS6yLuHMF4yR8KwWIttbGSPb/2aMbO9wkXUJ2Z5s/80Apc56fih1VsYodZS6Cwao844jZF1CnafOU+dPDNDkWJMHTY6VMZocmhyanMwAHZ4jf1iX0OHR4f1Th9e6Ima1sGd+7Vbm1A6vBt4DJGqN60qqt8Nb7a7OVPBSbBX1XZYXAK/y2a6zrpm3jke+5Oi6f38teG0qf/oR8T2NJQfI6i7Q+SUR4C0bXmou4JeSY+JmUH4i2Uu96gPLL7JAfWsEDQAAAABJRU5ErkJggg==" /></button>
-                  <button class="btnicons" @click="valorparaeditar(p)" data-bs-toggle="modal" data-bs-target="#exampleModal"><img class="icone"
+                  <button class="btnicons" @click="valorparaeditar(p)" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"><img class="icone"
                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA/CAYAAABXXxDfAAAAAXNSR0IArs4c6QAAAa1JREFUaEPt2ltygzAMBVBnZ+3K2q4szc5SdcIMH0AkWY8rEN8GfK6wDR5u48LH7cL20firVr8rX6DyH68+/lr2tULlCX5/oT/HGGYBoOPX8KXoZgEg47fgpgGg4o/gZgEg4jlwkwAQ8TS5LbM7Z3JXzwGIeAKHBICKlwbw83fCN+cxWbdBxnMDUMHp4tl4GttfYwwat3vH0RBQw7Px61md3tqkAUzBM/Fby5kkgGl4Fv5oHecE8NBMbltjKnrMc15g3gUgndR320fiOfCloyEBROEl8LAAIvAaeEgA3vgZOAVgMqvvDXpPPDTcc6mDh3vhS8A98GXg1vhScEt8ObgVviTcAl8WPosvDZ/Bl4dr8aeAa/CngUvxp4JL8bQvTjutmsP160zToSg8JDwCDwv3xkPDPfHwcC98CbgHvgxciqd1/uinAdprN/tTSrt8Sc7z3MCU9COlbeNTYge4aVceoAgpXejKp8QOcFNJ5d+t8wCc/y6w3zck+Jnv+chg2G+ZjWeWpSvPDCqzmctjv/wtmQnj3Jv9q5pkzHNuXKpN40uVy7CzXXnDMEtd6gmf1GJA64Zb/gAAAABJRU5ErkJggg==" /></button>
                 </td>
               </tr>
 
 
 
-              
+
             </tbody>
           </table>
         </div>
@@ -51,7 +54,7 @@
 
 
 
-        <button type="button" class="btn btnicons" data-bs-toggle="modal" data-bs-target="#exampleModal"><img
+        <button type="button" class="btn btnicons" data-bs-toggle="modal" data-bs-target="#exampleModal" @click=" my_focus()"><img
             class="icone"
             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA/CAYAAABXXxDfAAAAAXNSR0IArs4c6QAAAQNJREFUaEPtmFEOAjEIRNmb6ck8mt5MU2OMxv2BZEY2vH4vpcyDLXSLwWsbHHsQ/FT6kIf8QAVI+4HQnyFDHvIDFSDtzdBPEXHd8WkHYXcYEQQP+W8F7Flod0ja88P7qXp7FtodkvakPWn/qYC9BO0OqXlqnpo/ZM2vyay6lu1lx/hc3fBld8vaV39496wj8fcr8LR4BF+gAvmCaCoT0j6rbLXms34+v+cNjzc83vDeCthL0O6QqY6pjqnukFMd93xRAZocmhyaHJqcpYC94bI7pMPTPGCmL59/kE8fUmVA8Cplu+8L+e6EVOeDvErZ7vtCvjsh1fkgr1K2+76Q705Idb4HkVkrQHKtkh8AAAAASUVORK5CYII=" /></button>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -62,15 +65,17 @@
                 <form @submit.prevent="oucadastraouedita($event)">
                   <div class="conatiner-body ">
                     <div id="container-inputs">
-                      <label>Nome <br /><input v-model="nometarefa" type="text" name="nometarefa"
-                          id="nometarefa"></label>
-                      <label>Custo R$ <br /><input v-model="custo" type="number" name="custo" id="custo" step="0.01"></label>
+                      <label>Nome <br /><input v-model="nometarefa" type="text" name="nometarefa" id="nometarefa"
+                          autofocus></label>
+                      <label>Custo R$ <br /><input v-model="custo"
+                        @input="onInput" type="text" name="custo" id="custo" /></label>
                       <label>Data Limite <br /><input v-model="datalimite" type="date" name="datalimite"
                           id="datalimite"></label>
                     </div>
                   </div>
 
-                  <button type="submit" class="btincluir">Incluir</button>
+                  <button type="submit" class="btincluir" data-bs-dismiss="modal">Incluir</button>
+                  <button type="button" @click="limparCampos" class="btincluir" style="margin-left: 12px;">Limpar</button>
 
                 </form>
 
@@ -90,52 +95,74 @@ export default {
   name: 'App',
   data() {
     return {
-      //  listas
-      lista: [],
-      listacompleta: [],
-      //  campos do formulario
-      nometarefa: '',
-      custo: 0,
+      lista: [],  //  listas
+
+      nometarefa: '', //  campos do formulario
       datalimite: '',
-      //  valores variantes
-      idparaediar: "",
+      custo: '',
+      value: 0, // custo em number
+
+      idparaediar: '',  //  valores variantes
       podecadastrar: true,
-      ordem: 0
+      ordem: 0,
+
     }
   },
 
   methods: {
     //  ordem
 
-    async ordemUp(e){
+    async ordemUp(e) {
 
-      await fetch(`https://fatto-988d.onrender.com/tarefa/ordena/${e}/${true}`, {
+      await fetch(`${window.urlTarefaBackEnd}/ordena/${e}/${true}`, {
         method: 'PUT',
         //body: JSON.stringify(tarefa),
         headers: {
           'Content-Type': 'application/json'
         },
       })
-      .then(()=>{
-        this.buscar()
-      })
+        .then((e) => {
+          this.buscar()
+          if(e.status == 400){
+            window.alert("Não pode ir para cima")
+          }
+        })
     },
-    async ordemDown(e){
-      console.log(e)
-      await fetch(`https://fatto-988d.onrender.com/tarefa/ordena/${e}/${false}`, {
+    async ordemDown(e) {
+      await fetch(`${window.urlTarefaBackEnd}/ordena/${e}/${false}`, {
         method: 'PUT',
         //body: JSON.stringify(tarefa),
         headers: {
           'Content-Type': 'application/json'
         },
       })
-      .then(()=>{
-        this.buscar()
-      })
+        .then((e) => {
+          this.buscar()
+          if(e.status == 400){
+            window.alert("Não pode ir para baixo")
+          }
+        })
     },
 
+    onInput(event) {
+      let custo = event.target.value.replace(/\D/g, "");
+      if (custo.length === 0) {
+        this.custo = "0.00";
+      } else if (custo.length === 1) {
+        this.custo = "." + custo;
+      } else if (custo.length === 2) {
+        this.custo = "." + custo;
+      } else {
+        this.custo = custo.slice(0, -2) + "." + custo.slice(-2);
+      }
+      this.value = parseFloat(this.custo.replace(",", "."));
+    },
+    limparCampos(){
+      this.nometarefa = '',
+      this.custo = '',
+      this.datalimite = ''
+    },
     async cadastra() {
-
       //  objeto
       const tarefa = {
         nometarefa: this.nometarefa,
@@ -143,7 +170,7 @@ export default {
         datalimite: this.datalimite
       }
 
-      await fetch(`https://fatto-988d.onrender.com/tarefa/`, {
+      await fetch(`${window.urlTarefaBackEnd}/`, {
         method: 'POST',
         body: JSON.stringify(tarefa),
         headers: {
@@ -153,11 +180,11 @@ export default {
         .then((response) => {
           if (response.status === 400) {
             response.text().then((message) => {
-              console.error("Erro no código: " + message)
+              window.alert(message)
               this.nometarefa = "",
-                this.custo = 0,
-                this.datalimite = ""
-                this.ordem = 0
+              this.custo = 0,
+              this.datalimite = ""
+              this.ordem = 0
             })
           }
           else {
@@ -172,13 +199,21 @@ export default {
         })
     },
     async buscar() {
-      await fetch('https://fatto-988d.onrender.com/tarefa/', {
+      await fetch(`${window.urlTarefaBackEnd}/`, {
         method: "GET"
       })
         .then((res) => res.json())
         .then((resposta) => {
+
+          for (let i = 0; i < resposta.length; i++) {
+            let dia = resposta[i].datalimite.substring(8, 10)
+            let mes = resposta[i].datalimite.substring(5, 7)
+            let ano = resposta[i].datalimite.substring(0, 4)
+            let formatado = dia + "/" + mes + "/" + ano;
+            resposta[i].datalimite = formatado;
+          }
+
           this.lista = resposta;
-          console.log(this.lista)
         })
         .catch((erroouvazio) => {
           console.error("Houve um problema ao buscar a lista : " + erroouvazio);
@@ -188,26 +223,31 @@ export default {
       let text = "Deseja excluir essa tarefa ?";
       if (confirm(text) == true) {
 
-      fetch(`https://fatto-988d.onrender.com/tarefa/` + e, {
-        method: 'delete'
-      })
-      .then(() => {
-          this.buscar()
-        });
+        fetch(`${window.urlTarefaBackEnd}/` + e, {
+          method: 'delete'
+        })
+          .then(() => {
+            this.buscar()
+          });
         //.then((response) => {this.buscar()response.text().then((message) => {window.alert(message);});});
-      
-      }else{null}
+
+      } else { null }
     },
 
     //  editar
     valorparaeditar(e) {
       this.nometarefa = e.nometarefa
       this.custo = e.custo
-
       this.datalimite = e.datalimite
       this.idparaediar = e.id
       this.ordem = e.ordem
       this.podecadastrar = false
+
+      let dia = Number(this.datalimite.substring(0, 2));
+      let mes = Number(this.datalimite.substring(3, 5));
+      let ano = Number(this.datalimite.substring(6, 10));
+
+      this.datalimite = ano + "-" + mes + "-" + dia
     },
     oucadastraouedita(e) {
       if (this.podecadastrar === true) {
@@ -227,7 +267,7 @@ export default {
         ordem: this.ordem
       }
 
-      fetch('https://fatto-988d.onrender.com/tarefa/' + idtemporario, {
+      fetch(`${window.urlTarefaBackEnd}/` + idtemporario, {
         method: 'put',
         body: JSON.stringify(dados),
         headers: {
@@ -260,13 +300,19 @@ export default {
     },
 
     //  mudar a cor
-    cor(){
-      if(this.custo >= 1000.00 ){
+    cor() {
+      if (this.custo >= 1000.00) {
         document.getElementById('meuElemento').style.backgroundColor = 'red';
       }
+    },
+    my_focus() {
+      var myModal = document.getElementById('exampleModal')
+      var myInput = document.getElementById('nometarefa')
+
+      myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+      })
     }
-
-
   },
   mounted() {
     this.buscar()
@@ -330,10 +376,11 @@ th {
   font-size: 25px;
 }
 
-td{
+td {
   text-align: center;
 }
-.th-table{
+
+.th-table {
   text-align: center;
 }
 
@@ -384,5 +431,7 @@ td{
 
 
 /*cor cara*/
-.high-cost { color: red; }
+.high-cost {
+  color: red;
+}
 </style>

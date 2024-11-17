@@ -25,18 +25,12 @@ public class TarefaService {
         return ResponseEntity.badRequest().body("Não pode haver duas tarefas com o mesmo nome");
     }
 
-    Tarefa novaTarefa = new Tarefa();
-    novaTarefa.setNometarefa(tarefaDTO.nometarefa());
-    novaTarefa.setCusto(tarefaDTO.custo());
-    novaTarefa.setDatalimite(tarefaDTO.datalimite());
-    // Definindo a ordem inicial temporariamente como 0, será atualizada depois
-    novaTarefa.setOrdem(0L);
+    if(tarefaDTO.custo() < 0){
+        return ResponseEntity.badRequest().body("Não pode ter valor negativo");      
+    }
 
-    this.repository.save(novaTarefa);
-
-    List<Tarefa> all = this.repository.findAll();
-    atualizarOrdens(all);
-
+    int size = this.repository.findAll().size();
+    this.repository.save(new Tarefa(tarefaDTO.nometarefa(), tarefaDTO.custo(), tarefaDTO.datalimite(), size+1l));
     return ResponseEntity.ok().body("Tarefa incluída");
 }
 
@@ -89,7 +83,7 @@ public class TarefaService {
         return lista;
     }
     
-    public void Ordena(Long ordem, boolean toup) {
+    public ResponseEntity<String> Ordena(Long ordem, boolean toup) {
         Tarefa tarefa = this.repository.findByOrdem(ordem);
     
         if (tarefa == null) {
@@ -98,14 +92,14 @@ public class TarefaService {
     
         if (toup) {
             if (ordem == 1) {
-                throw new IllegalArgumentException("Nao e possível mover a tarefa com ordem 1 para cima.");
+                 return ResponseEntity.badRequest().body("Nao e possível mover a tarefa com ordem 1 para cima.");
             }
     
             Long ordemDecima = ordem - 1;
             Tarefa tarefaDecima = this.repository.findByOrdem(ordemDecima);
     
             if (tarefaDecima == null) {
-                throw new IllegalArgumentException("Tarefa com a ordem " + ordemDecima + " nao encontrada");
+                 return ResponseEntity.badRequest().body("Tarefa com a ordem " + ordemDecima + " nao encontrada");
             }
     
             System.out.println("A tarefa acima era: " + tarefaDecima);
@@ -123,14 +117,14 @@ public class TarefaService {
                 new IllegalArgumentException("Não foi possível determinar a ultima ordem da lista."));
     
             if (ordem.equals(ultimaOrdem)) {
-                throw new IllegalArgumentException("Não é possível mover a ultima tarefa para baixo.");
+                 return ResponseEntity.badRequest().body("Não é possível mover a ultima tarefa para baixo.");
             }
     
             Long ordemDebaixo = ordem + 1;
             Tarefa tarefaDebaixo = this.repository.findByOrdem(ordemDebaixo);
     
             if (tarefaDebaixo == null) {
-                throw new IllegalArgumentException("Tarefa com a ordem " + ordemDebaixo + " nao encontrada");
+                 return ResponseEntity.badRequest().body("Tarefa com a ordem " + ordemDebaixo + " nao encontrada");
             }
     
             System.out.println("A tarefa abaixo era: " + tarefaDebaixo);
@@ -142,7 +136,9 @@ public class TarefaService {
     
             tarefa.setOrdem(ordemDebaixo);
             this.repository.save(tarefa);
+            return ResponseEntity.ok().build();
         }
+                return null;
     }
     
     

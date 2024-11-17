@@ -1,0 +1,4 @@
+CASO VÁ MEXER NESSE PROJETO
+editar o host no arquvo html
+lembrar que esse repositorio está vingulado ao render e ao vercel
+modifique o application.propeties para o que tem no docker-compose.yml

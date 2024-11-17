@@ -42,8 +42,8 @@ public class TarefaController {
         return this.service.ListaTarefas();
     }
     @PutMapping("/ordena/{ordem}/{toup}") 
-    public void Ordena(@PathVariable("ordem") Long ordem, @PathVariable("toup") boolean toup){ 
-        this.service.Ordena(ordem, toup); 
+    public ResponseEntity<String> Ordena(@PathVariable("ordem") Long ordem, @PathVariable("toup") boolean toup){ 
+        return this.service.Ordena(ordem, toup); 
     }
     
 }

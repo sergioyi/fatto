@@ -39,7 +39,29 @@ public class TarefaControllerTest {
     @Test
     @DisplayName("incluido com sucesso")
     void testIncluir() {
-        ResponseEntity<String> incluir = this.service.Incluir(new TarefaDTO("fazer o teste da fatto", 100f, LocalDate.of(2024, 11, 3)));
+        ResponseEntity<String> incluir = this.service.Incluir(new TarefaDTO("fazer o teste da fatto", 100d, LocalDate.of(2024, 11, 3)));
+        assertEquals(incluir.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    @DisplayName("custo 123456789")
+    void custo123456789() {
+        ResponseEntity<String> incluir = this.service.Incluir(new TarefaDTO("fazer o teste da fatto", 123456789d, LocalDate.of(2024, 11, 3)));
+        assertEquals(incluir.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    @DisplayName("custo negativo")
+    void CustoNegativo() {
+        ResponseEntity<String> incluir = this.service.Incluir(new TarefaDTO("fazer o teste da fatto", -123456789d, LocalDate.of(2024, 11, 3)));
+        assertEquals(incluir.getStatusCode(), HttpStatus.BAD_REQUEST);
+        assertEquals(incluir.getBody(), "Não pode haver duas abaixo de 0");
+    }
+
+    @Test
+    @DisplayName("tudo um")
+    void TudoUm() {
+        ResponseEntity<String> incluir = this.service.Incluir(new TarefaDTO("1", 1d, LocalDate.of(1111, 11, 1)));
         assertEquals(incluir.getStatusCode(), HttpStatus.OK);
     }
 
@@ -55,15 +77,15 @@ public class TarefaControllerTest {
     @DisplayName("editar com sucesso") 
     public void testEditarComSucesso() { 
         Long id = 1L; 
-        TarefaDTO tarefaDTO = new TarefaDTO("nova tarefa", 200f, LocalDate.of(2025, 12, 15)); 
-        TarefaDTO tarefaantiga = new TarefaDTO("tarefa antiga", 100f, LocalDate.of(2024, 11, 3));
+        TarefaDTO tarefaDTO = new TarefaDTO("nova tarefa", 200d, LocalDate.of(2025, 12, 15)); 
+        TarefaDTO tarefaantiga = new TarefaDTO("tarefa antiga", 100d, LocalDate.of(2024, 11, 3));
         Tarefa tarefaExistente = new Tarefa(id, tarefaantiga);
         
          // Configura o mock para simular o comportamento do repositório 
          when(repository.findById(id)).thenReturn(Optional.of(tarefaExistente)); // Chama o método a ser testado 
          ResponseEntity<String> response = service.Editar(id, tarefaDTO); // Verifica se a resposta é 200 OK e contém a mensagem correta 
          assertEquals(HttpStatus.OK, response.getStatusCode()); 
-         assertEquals("editado com sucesso", response.getBody()); // Verifica se o repositório foi chamado para salvar a nova tarefa 
+         assertEquals("editado com sucesso !", response.getBody()); // Verifica se o repositório foi chamado para salvar a nova tarefa 
          verify(repository).save(any(Tarefa.class));
         }
     //editar pelo mesmo nome

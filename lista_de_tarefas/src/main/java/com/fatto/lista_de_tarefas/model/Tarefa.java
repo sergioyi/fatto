@@ -20,7 +20,7 @@ public class Tarefa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nometarefa;
-    private float custo;
+    private Double custo;
     private LocalDate datalimite;
     @Column(unique = true)
     private Long ordem;
@@ -36,8 +36,14 @@ public class Tarefa {
         this.custo = tarefa.custo();
         this.datalimite = tarefa.datalimite();
     }
-    public Tarefa(Long id, String nometarefa, float custo, LocalDate datalimite, Long ordem) {
+    public Tarefa(Long id, String nometarefa, Double custo, LocalDate datalimite, Long ordem) {
         this.id = id;
+        this.nometarefa = nometarefa;
+        this.custo = custo;
+        this.datalimite = datalimite;
+        this.ordem = ordem;
+    }
+    public Tarefa(String nometarefa, Double custo, LocalDate datalimite, Long ordem) {
         this.nometarefa = nometarefa;
         this.custo = custo;
         this.datalimite = datalimite;
