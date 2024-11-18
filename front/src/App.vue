@@ -147,11 +147,11 @@ export default {
     onInput(event) {
       let custo = event.target.value.replace(/\D/g, "");
       if (custo.length === 0) {
-        this.custo = "0.00";
+        this.custo = "0,00";
       } else if (custo.length === 1) {
-        this.custo = "." + custo;
+        this.custo = "," + custo;
       } else if (custo.length === 2) {
-        this.custo = "." + custo;
+        this.custo = "," + custo;
       } else {
         this.custo = custo.slice(0, -2) + "." + custo.slice(-2);
       }
