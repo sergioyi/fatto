@@ -23,11 +23,12 @@
             </thead>
             <tbody>
 
-              <tr v-for="p in lista" v-bind:key="p.id" :class="{ 'high-cost': p.custo >= 1000 }">
+              <tr v-for="p in lista" v-bind:key="p.id" :class="p.className">
                 <td>
                   <button class="btnicons" @click="ordemUp(p.ordem)" v-show="p.ordem !== 1"><img class="icone"
                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA/CAYAAABXXxDfAAAAAXNSR0IArs4c6QAAAaRJREFUaEPtmFuOwjAMRc3OYGUDK5tZGnikIIiaxo/EVpQbqV/UNOfcvNoLbdwuG7MT4HdNH8kj+Q0NYNhvGPo/MpJH8hsayB7295dzvlJaJvwvEV1f1x8R3TLos+ALeGFOEZABX4OnCYiGb4GnCIiE74GHC4iCl4KHCoiA14KHCZgNbwUPETAT3gs+XcAs+DNw3tP5cFO3BxH9NA47U84BM+DPwBmQQfieunFf+KgbJmA0fA+c4Tj1FjwLCRMwEl4CznA9+DABo+Cl4FL4EAEj4DXgGvjpArzwWnAt/FQBHngLuAV+mgAPfGvh4u3s7OuMZME72u5buwB/COHtU9088Ecp9sCtyRewWoAZnP/QC/8JIwH3wn9OARf4KPgCJB161mGvHta9ghHJ955R/w74A2PhQYQ/UHi81Y4m0/2AN2mzF2HOY85/GwifguEPxIJ3/iXHvpooK5G8Upj3dqz2WO03XO3LW2AdvvSt0Dvt3vUZC96wznv/CPBeg6vWI/lVk/P2G8l7Da5aj+RXTc7bbyTvNbhqPZJfNTlvv5G81+Cq9U9x51lAE774fgAAAABJRU5ErkJggg==" /></button>
-                  <button class="btnicons" @click="ordemDown(p.ordem)" v-show="p.ordem !== lista.length"><img class="icone"
+                  <button class="btnicons" @click="ordemDown(p.ordem)" v-show="p.ordem !== lista.length"><img
+                      class="icone"
                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA/CAYAAABXXxDfAAAAAXNSR0IArs4c6QAAAZlJREFUaEPtmVFuwyAQRMnN0pM1OVl7tGYrWUpaDLvAzkhh/BUploc3swsYX8rG12Vj9iL4XdNX8kp+QwdU9huG/ous5JX8hg6o7DcMXRMeq+yvlWr7RlcgA97Avyqg8LHABUspglfyrw7AqxAuqLLXhPev6+FVCBdU2avsVfbPDsBbEC6onn+znrf9uvetbMXePqJ3+rK4ouxvpZTPx2Ho/aFiv3vXLHxULw3+GMgh4DFgBn5ELwX+70C8BozCj+qlwNuBRO1ExsRaFTACfwZuWjbXfPR6rfb/bM+PGBCFTwFf9cUmakAEPg18Fbw9J2KAFz4VfCV8xAAPfDr4anivAT14CHgGvMcAm53Pjq5h4FnwPQMMvrZE2vJoO8XaNbyctZbA2aWu9ezWJBhZllPAM5M/4GYNSANHwPdaoFUBqeAo+BED0sGR8BEDIOBoeI8BMHAGfMsAKDgLvmYAHJwJ/2wABZwNb/q2nfWc+0U2Re57M3d47kGwbhQ8y3m2rpJnJ8DSV/Is59m6Sp6dAEtfybOcZ+tunfwPRuBaQIpdqiEAAAAASUVORK5CYII=" /></button>
                 </td>
                 <td>{{ p.id }}</td>
@@ -54,8 +55,8 @@
 
 
 
-        <button type="button" class="btn btnicons" data-bs-toggle="modal" data-bs-target="#exampleModal" @click=" my_focus()"><img
-            class="icone"
+        <button type="button" class="btn btnicons" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          @click=" my_focus()"><img class="icone"
             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA/CAYAAABXXxDfAAAAAXNSR0IArs4c6QAAAQNJREFUaEPtmFEOAjEIRNmb6ck8mt5MU2OMxv2BZEY2vH4vpcyDLXSLwWsbHHsQ/FT6kIf8QAVI+4HQnyFDHvIDFSDtzdBPEXHd8WkHYXcYEQQP+W8F7Flod0ja88P7qXp7FtodkvakPWn/qYC9BO0OqXlqnpo/ZM2vyay6lu1lx/hc3fBld8vaV39496wj8fcr8LR4BF+gAvmCaCoT0j6rbLXms34+v+cNjzc83vDeCthL0O6QqY6pjqnukFMd93xRAZocmhyaHJqcpYC94bI7pMPTPGCmL59/kE8fUmVA8Cplu+8L+e6EVOeDvErZ7vtCvjsh1fkgr1K2+76Q705Idb4HkVkrQHKtkh8AAAAASUVORK5CYII=" /></button>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -67,15 +68,16 @@
                     <div id="container-inputs">
                       <label>Nome <br /><input v-model="nometarefa" type="text" name="nometarefa" id="nometarefa"
                           autofocus></label>
-                      <label>Custo R$ <br /><input v-model="custo"
-                        @input="onInput" type="text" name="custo" id="custo" /></label>
+                      <label>Custo R$ <br /><input v-model="custo" @input="onInput" type="text" name="custo"
+                          id="custo" /></label>
                       <label>Data Limite <br /><input v-model="datalimite" type="date" name="datalimite"
                           id="datalimite"></label>
                     </div>
                   </div>
 
                   <button type="submit" class="btincluir" data-bs-dismiss="modal">Incluir</button>
-                  <button type="button" @click="limparCampos" class="btincluir" style="margin-left: 12px;">Limpar</button>
+                  <button type="button" @click="limparCampos" class="btincluir"
+                    style="margin-left: 12px;">Limpar</button>
 
                 </form>
 
@@ -123,7 +125,7 @@ export default {
       })
         .then((e) => {
           this.buscar()
-          if(e.status == 400){
+          if (e.status == 400) {
             window.alert("Não pode ir para cima")
           }
         })
@@ -138,29 +140,28 @@ export default {
       })
         .then((e) => {
           this.buscar()
-          if(e.status == 400){
+          if (e.status == 400) {
             window.alert("Não pode ir para baixo")
           }
         })
     },
-
     onInput(event) {
       let custo = event.target.value.replace(/\D/g, "");
       if (custo.length === 0) {
-        this.custo = "0,00";
+        this.custo = "0.00";
       } else if (custo.length === 1) {
-        this.custo = "," + custo;
+        this.custo = "." + custo;
       } else if (custo.length === 2) {
-        this.custo = "," + custo;
+        this.custo = "." + custo;
       } else {
         this.custo = custo.slice(0, -2) + "." + custo.slice(-2);
       }
       this.value = parseFloat(this.custo.replace(",", "."));
     },
-    limparCampos(){
+    limparCampos() {
       this.nometarefa = '',
-      this.custo = '',
-      this.datalimite = ''
+        this.custo = '',
+        this.datalimite = ''
     },
     async cadastra() {
       //  objeto
@@ -182,8 +183,8 @@ export default {
             response.text().then((message) => {
               window.alert(message)
               this.nometarefa = "",
-              this.custo = 0,
-              this.datalimite = ""
+                this.custo = 0,
+                this.datalimite = ""
               this.ordem = 0
             })
           }
@@ -204,21 +205,28 @@ export default {
       })
         .then((res) => res.json())
         .then((resposta) => {
-
           for (let i = 0; i < resposta.length; i++) {
-            let dia = resposta[i].datalimite.substring(8, 10)
-            let mes = resposta[i].datalimite.substring(5, 7)
-            let ano = resposta[i].datalimite.substring(0, 4)
+            resposta[i].className = resposta[i].custo >= 1000.00 ? 'high-cost' : '';
+
+            let dia = resposta[i].datalimite.substring(8, 10);
+            let mes = resposta[i].datalimite.substring(5, 7);
+            let ano = resposta[i].datalimite.substring(0, 4);
             let formatado = dia + "/" + mes + "/" + ano;
             resposta[i].datalimite = formatado;
+
+            // Formatar custo para moeda
+            let custo = parseFloat(resposta[i].custo);
+            let custoFormatado = custo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            resposta[i].custo = custoFormatado;
           }
 
           this.lista = resposta;
         })
         .catch((erroouvazio) => {
-          console.error("Houve um problema ao buscar a lista : " + erroouvazio);
+          console.error("Houve um problema ao buscar a lista: " + erroouvazio);
         });
-    },
+    }
+    ,
     deleta(e) {
       let text = "Deseja excluir essa tarefa ?";
       if (confirm(text) == true) {
@@ -299,12 +307,6 @@ export default {
         });
     },
 
-    //  mudar a cor
-    cor() {
-      if (this.custo >= 1000.00) {
-        document.getElementById('meuElemento').style.backgroundColor = 'red';
-      }
-    },
     my_focus() {
       var myModal = document.getElementById('exampleModal')
       var myInput = document.getElementById('nometarefa')
